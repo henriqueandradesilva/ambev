@@ -1,8 +1,8 @@
-using Ambev.DeveloperEvaluation.Application.Users.CreateUser;
+using Ambev.DeveloperEvaluation.Application.Users.Commands.CreateUser;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using Bogus;
 
-namespace Ambev.DeveloperEvaluation.Unit.Domain;
+namespace Ambev.DeveloperEvaluation.Unit.Application.Handlers.UserHandlers.TestData;
 
 /// <summary>
 /// Provides methods for generating test data using the Bogus library.
