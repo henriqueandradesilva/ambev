@@ -30,7 +30,7 @@ The implementation leverages modern technologies like .NET 8, Entity Framework C
 # API Documentation And Postman Collection #
 - Comprehensive RESTful endpoints with clear documentation generated via Swagger/OpenAPI.
 - This collection contains the requests for the API.
-- *File: [Postman](./doc/AmbevPostmanCollection.json)*
+- *File: [Postman](/.doc/AmbevPostmanCollection.json)*
 
 # Error Handling #
 **Unified error response structure for:**
@@ -92,7 +92,7 @@ Press F5 or click "Start" to run the application.
 Open your browser and go to: https://localhost:7181/swagger/index.html.
 
 ## Entity Relationship Diagram
-![Entity Relationship Diagram](./doc/der.png)
+![Entity Relationship Diagram](/.doc/der.png)
 
 # Tests
 **Unit Test:** A set of automated tests that verify the behavior of specific units of the application (such as functions or methods) to ensure they work correctly in isolation.
@@ -101,7 +101,7 @@ Open your browser and go to: https://localhost:7181/swagger/index.html.
 - Testcontainers: Only the SaleRepository is using Testcontainers, so it will be necessary to have Docker installed on your machine to run the tests that depend on it.
 
 ## Test Explorer
-![Test Explorer](./doc/tests.png)
+![Test Explorer](/.doc/tests.png)
 
 # Future Enhancements #
 - In the future, it would be beneficial to extend the system's capabilities by integrating additional features, such as a shopping cart and other essential components that enhance the overall sales experience. The integration with a shopping cart would allow for a smoother and more intuitive customer journey, enabling users to add, modify, and review their items before proceeding to checkout.
