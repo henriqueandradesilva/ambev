@@ -1,0 +1,80 @@
+﻿using Ambev.DeveloperEvaluation.Common.Security.Interfaces;
+using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Repositories;
+using AutoMapper;
+using FluentValidation;
+using MediatR;
+using Serilog;
+
+namespace Ambev.DeveloperEvaluation.Application.Users.Commands.CreateUser;
+
+/// <summary>
+/// Handler for processing CreateUserCommand requests
+/// </summary>
+public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserResult>
+{
+    private readonly IUserRepository _userRepository;
+    private readonly IMapper _mapper;
+    private readonly IPasswordHasher _passwordHasher;
+
+    /// <summary>
+    /// Initializes a new instance of CreateUserHandler
+    /// </summary>
+    /// <param name="userRepository">The user repository</param>
+    /// <param name="mapper">The AutoMapper instance</param>
+    public CreateUserHandler(
+        IUserRepository userRepository,
+        IMapper mapper,
+        IPasswordHasher passwordHasher)
+    {
+        _userRepository = userRepository;
+        _mapper = mapper;
+        _passwordHasher = passwordHasher;
+    }
+
+    /// <summary>
+    /// Handles the CreateUserCommand request
+    /// </summary>
+    /// <param name="command">The CreateUser command</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The created user details</returns>
+    public async Task<CreateUserResult> Handle(
+        CreateUserCommand command,
+        CancellationToken cancellationToken)
+    {
+        var validator = new CreateUserCommandValidator();
+
+        var validationResult = await validator.ValidateAsync(command, cancellationToken);
+
+        if (!validationResult.IsValid)
+        {
+            var message = string.Join(Environment.NewLine, validationResult.Errors.Select(e => $"{e.PropertyName}: {e.ErrorMessage}"));
+
+            Log.Error("Validation failed: {ValidationErrors}", message);
+
+            throw new ValidationException(validationResult.Errors);
+        }
+
+        var existingUser =
+            await _userRepository.FindAsync(c => c.Email == command.Email, cancellationToken);
+
+        if (existingUser != null)
+        {
+            var message = $"User with email {command.Email} already exists";
+
+            Log.Error(message);
+
+            throw new InvalidOperationException(message);
+        }
+
+        var user = _mapper.Map<User>(command);
+
+        user.Password = _passwordHasher.HashPassword(command.Password);
+
+        var createdUser = await _userRepository.CreateAsync(user, cancellationToken);
+
+        var result = _mapper.Map<CreateUserResult>(createdUser);
+
+        return result;
+    }
+}

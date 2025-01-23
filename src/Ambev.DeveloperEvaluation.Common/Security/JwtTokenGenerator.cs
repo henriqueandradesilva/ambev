@@ -1,3 +1,4 @@
+using Ambev.DeveloperEvaluation.Common.Security.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,7 +18,8 @@ public class JwtTokenGenerator : IJwtTokenGenerator
     /// Initializes a new instance of the JWT token generator.
     /// </summary>
     /// <param name="configuration">Application configuration containing the necessary keys for token generation.</param>
-    public JwtTokenGenerator(IConfiguration configuration)
+    public JwtTokenGenerator(
+        IConfiguration configuration)
     {
         _configuration = configuration;
     }
@@ -36,9 +38,11 @@ public class JwtTokenGenerator : IJwtTokenGenerator
     /// The token is valid for 8 hours from the moment of generation.
     /// </remarks>
     /// <exception cref="ArgumentNullException">Thrown when user or secret key is not provided.</exception>
-    public string GenerateToken(IUser user)
+    public string GenerateToken(
+        IUser user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
+
         var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"]);
 
         var claims = new[]
@@ -58,6 +62,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
+
         return tokenHandler.WriteToken(token);
     }
 }

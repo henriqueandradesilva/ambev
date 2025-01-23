@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Common.Utils;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,69 +8,44 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories;
 /// <summary>
 /// Implementation of IUserRepository using Entity Framework Core
 /// </summary>
-public class UserRepository : IUserRepository
+public class UserRepository : Repository<User>, IUserRepository
 {
     private readonly DefaultContext _context;
 
-    /// <summary>
-    /// Initializes a new instance of UserRepository
-    /// </summary>
-    /// <param name="context">The database context</param>
-    public UserRepository(DefaultContext context)
+    public UserRepository(
+        DefaultContext context) : base(context)
     {
         _context = context;
     }
 
     /// <summary>
-    /// Creates a new user in the database
+    /// Retrieves a paginated list of users based on the specified criteria.
     /// </summary>
-    /// <param name="user">The user to create</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The created user</returns>
-    public async Task<User> CreateAsync(User user, CancellationToken cancellationToken = default)
+    /// <param name="pageNumber">The number of the page to retrieve. Defaults to 1.</param>
+    /// <param name="pageSize">The number of items per page. Defaults to 10.</param>
+    /// <param name="queryCustomizer">
+    /// An optional function to customize the query before execution. 
+    /// This can be used for filtering, sorting, or additional conditions.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to cancel the operation. Defaults to <see cref="CancellationToken.None"/>.
+    /// </param>
+    /// <returns>
+    /// A task representing the asynchronous operation, containing a <see cref="PaginatedList{User}"/>
+    /// with the retrieved users.
+    /// </returns>
+    public async Task<PaginatedList<User>> GetListUserWithPaginationAsync(
+        int pageNumber,
+        int pageSize,
+        Func<IQueryable<User>, IQueryable<User>>? queryCustomizer = null,
+        CancellationToken cancellationToken = default)
     {
-        await _context.Users.AddAsync(user, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
-        return user;
-    }
+        var query = _context.Set<User>()
+                            .AsNoTracking();
 
-    /// <summary>
-    /// Retrieves a user by their unique identifier
-    /// </summary>
-    /// <param name="id">The unique identifier of the user</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The user if found, null otherwise</returns>
-    public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
-    {
-        return await _context.Users.FirstOrDefaultAsync(o=> o.Id == id, cancellationToken);
-    }
+        if (queryCustomizer != null)
+            query = queryCustomizer(query);
 
-    /// <summary>
-    /// Retrieves a user by their email address
-    /// </summary>
-    /// <param name="email">The email address to search for</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The user if found, null otherwise</returns>
-    public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
-    {
-        return await _context.Users
-            .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
-    }
-
-    /// <summary>
-    /// Deletes a user from the database
-    /// </summary>
-    /// <param name="id">The unique identifier of the user to delete</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>True if the user was deleted, false if not found</returns>
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
-    {
-        var user = await GetByIdAsync(id, cancellationToken);
-        if (user == null)
-            return false;
-
-        _context.Users.Remove(user);
-        await _context.SaveChangesAsync(cancellationToken);
-        return true;
+        return await PaginatedList<User>.CreateAsync(query, pageNumber, pageSize, cancellationToken);
     }
 }

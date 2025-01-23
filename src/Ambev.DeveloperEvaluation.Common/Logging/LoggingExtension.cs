@@ -8,12 +8,9 @@ using Serilog.Exceptions;
 using Serilog.Exceptions.Core;
 using Serilog.Exceptions.EntityFrameworkCore.Destructurers;
 using Serilog.Sinks.SystemConsole.Themes;
-using Serilog.Templates;
 using System.Diagnostics;
 
 namespace Ambev.DeveloperEvaluation.Common.Logging;
-
-
 
 /// <summary> Add default Logging configuration to project. This configuration supports Serilog logs with DataDog compatible output.</summary>
 public static class LoggingExtension
@@ -50,7 +47,8 @@ public static class LoggingExtension
     /// <remarks>
     /// <para>Logging output are diferents on Debug and Release modes.</para>
     /// </remarks> 
-    public static WebApplicationBuilder AddDefaultLogging(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddDefaultLogging(
+        this WebApplicationBuilder builder)
     {
         Log.Logger = new LoggerConfiguration().CreateLogger();
         builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
@@ -92,13 +90,15 @@ public static class LoggingExtension
     /// <summary>Adds middleware for Swagger documetation generation.</summary>
     /// <param name="app">The <see cref="WebApplication"/> instance this method extends.</param>
     /// <returns>The <see cref="WebApplication"/> for Swagger documentation.</returns>
-    public static WebApplication UseDefaultLogging(this WebApplication app)
+    public static WebApplication UseDefaultLogging(
+        this WebApplication app)
     {
         var logger = app.Services.GetRequiredService<ILogger<Logger>>();
 
         var mode = Debugger.IsAttached ? "Debug" : "Release";
-        logger.LogInformation("Logging enabled for '{Application}' on '{Environment}' - Mode: {Mode}", app.Environment.ApplicationName, app.Environment.EnvironmentName, mode);
-        return app;
 
+        logger.LogInformation("Logging enabled for '{Application}' on '{Environment}' - Mode: {Mode}", app.Environment.ApplicationName, app.Environment.EnvironmentName, mode);
+
+        return app;
     }
 }

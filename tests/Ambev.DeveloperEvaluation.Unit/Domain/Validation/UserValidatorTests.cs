@@ -1,6 +1,6 @@
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Validation;
-using Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData;
+using Ambev.DeveloperEvaluation.Unit.Domain.Entities.UserEntity.TestData;
 using FluentValidation.TestHelper;
 using Xunit;
 
@@ -35,7 +35,7 @@ public class UserValidatorTests
     public void Given_ValidUser_When_Validated_Then_ShouldNotHaveErrors()
     {
         // Arrange
-        var user = UserTestData.GenerateValidUser();
+        var user = UserEntityTestData.GenerateValidUser();
 
         // Act
         var result = _validator.TestValidate(user);
@@ -59,7 +59,7 @@ public class UserValidatorTests
     public void Given_InvalidUsername_When_Validated_Then_ShouldHaveError(string username)
     {
         // Arrange
-        var user = UserTestData.GenerateValidUser();
+        var user = UserEntityTestData.GenerateValidUser();
         user.Username = username;
 
         // Act
@@ -79,8 +79,8 @@ public class UserValidatorTests
     public void Given_UsernameLongerThanMaximum_When_Validated_Then_ShouldHaveError()
     {
         // Arrange
-        var user = UserTestData.GenerateValidUser();
-        user.Username = UserTestData.GenerateLongUsername();
+        var user = UserEntityTestData.GenerateValidUser();
+        user.Username = UserEntityTestData.GenerateLongUsername();
 
         // Act
         var result = _validator.TestValidate(user);
@@ -102,8 +102,8 @@ public class UserValidatorTests
     public void Given_InvalidEmail_When_Validated_Then_ShouldHaveError()
     {
         // Arrange
-        var user = UserTestData.GenerateValidUser();
-        user.Email = UserTestData.GenerateInvalidEmail();
+        var user = UserEntityTestData.GenerateValidUser();
+        user.Email = UserEntityTestData.GenerateInvalidEmail();
 
         // Act
         var result = _validator.TestValidate(user);
@@ -127,8 +127,8 @@ public class UserValidatorTests
     public void Given_InvalidPassword_When_Validated_Then_ShouldHaveError()
     {
         // Arrange
-        var user = UserTestData.GenerateValidUser();
-        user.Password = UserTestData.GenerateInvalidPassword();
+        var user = UserEntityTestData.GenerateValidUser();
+        user.Password = UserEntityTestData.GenerateInvalidPassword();
 
         // Act
         var result = _validator.TestValidate(user);
@@ -150,8 +150,8 @@ public class UserValidatorTests
     public void Given_InvalidPhone_When_Validated_Then_ShouldHaveError()
     {
         // Arrange
-        var user = UserTestData.GenerateValidUser();
-        user.Phone = UserTestData.GenerateInvalidPhone();
+        var user = UserEntityTestData.GenerateValidUser();
+        user.Phone = UserEntityTestData.GenerateInvalidPhone();
 
         // Act
         var result = _validator.TestValidate(user);
@@ -172,7 +172,7 @@ public class UserValidatorTests
     public void Given_UnknownStatus_When_Validated_Then_ShouldHaveError()
     {
         // Arrange
-        var user = UserTestData.GenerateValidUser();
+        var user = UserEntityTestData.GenerateValidUser();
         user.Status = UserStatus.Unknown;
 
         // Act
@@ -194,7 +194,7 @@ public class UserValidatorTests
     public void Given_NoneRole_When_Validated_Then_ShouldHaveError()
     {
         // Arrange
-        var user = UserTestData.GenerateValidUser();
+        var user = UserEntityTestData.GenerateValidUser();
         user.Role = UserRole.None;
 
         // Act

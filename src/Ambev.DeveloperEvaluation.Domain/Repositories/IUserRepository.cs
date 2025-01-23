@@ -1,41 +1,36 @@
+using Ambev.DeveloperEvaluation.Common.Utils;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 
 namespace Ambev.DeveloperEvaluation.Domain.Repositories;
 
 /// <summary>
-/// Repository interface for User entity operations
+/// Repository interface for managing operations related to <see cref="User"/> entities.
 /// </summary>
-public interface IUserRepository
+/// <remarks>
+/// Extends the generic <see cref="IRepository{T}"/> to include additional functionality 
+/// for retrieving paginated user lists.
+/// </remarks>
+public interface IUserRepository : IRepository<User>
 {
     /// <summary>
-    /// Creates a new user in the repository
+    /// Retrieves a paginated list of users based on the specified criteria.
     /// </summary>
-    /// <param name="user">The user to create</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The created user</returns>
-    Task<User> CreateAsync(User user, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Retrieves a user by their unique identifier
-    /// </summary>
-    /// <param name="id">The unique identifier of the user</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The user if found, null otherwise</returns>
-    Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Retrieves a user by their email address
-    /// </summary>
-    /// <param name="email">The email address to search for</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The user if found, null otherwise</returns>
-    Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Deletes a user from the repository
-    /// </summary>
-    /// <param name="id">The unique identifier of the user to delete</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>True if the user was deleted, false if not found</returns>
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+    /// <param name="pageNumber">The number of the page to retrieve. Defaults to 1.</param>
+    /// <param name="pageSize">The number of items per page. Defaults to 10.</param>
+    /// <param name="queryCustomizer">
+    /// An optional function to customize the query before execution.
+    /// This can be used for filtering, sorting, or applying additional conditions.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to cancel the operation. Defaults to <see cref="CancellationToken.None"/>.
+    /// </param>
+    /// <returns>
+    /// A task representing the asynchronous operation, containing a <see cref="PaginatedList{User}"/>
+    /// with the retrieved users.
+    /// </returns>
+    Task<PaginatedList<User>> GetListUserWithPaginationAsync(
+        int pageNumber,
+        int pageSize,
+        Func<IQueryable<User>, IQueryable<User>>? queryCustomizer = null,
+        CancellationToken cancellationToken = default);
 }

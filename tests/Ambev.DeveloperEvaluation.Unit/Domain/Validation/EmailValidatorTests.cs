@@ -1,5 +1,5 @@
 using Ambev.DeveloperEvaluation.Domain.Validation;
-using Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData;
+using Ambev.DeveloperEvaluation.Unit.Domain.Entities.UserEntity.TestData;
 using FluentValidation.TestHelper;
 using Xunit;
 
@@ -25,7 +25,7 @@ public class EmailValidatorTests
     public void Given_ValidEmailFormat_When_Validated_Then_ShouldNotHaveErrors()
     {
         // Arrange
-        var email = UserTestData.GenerateValidEmail();
+        var email = UserEntityTestData.GenerateValidEmail();
 
         // Act
         var result = _validator.TestValidate(email);

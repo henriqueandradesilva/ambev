@@ -1,0 +1,382 @@
+{
+	"info": {
+		"_postman_id": "cd9ee94e-d370-411e-9920-64d12a77c1b4",
+		"name": "8 - Ambev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "api/auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"henrique.andradesilva@hotmail.com\",\r\n  \"password\": \"3hF!9pL@X7\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7181/api/auth",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "api/users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"henrique\",\r\n  \"password\": \"Sucesso@2024\",\r\n  \"phone\": \"14996204986\",\r\n  \"email\": \"henrique.andradesilva1@hotmail.com\",\r\n  \"status\": 1,\r\n  \"role\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7181/api/users",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/users/{id}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"henrique\",\r\n  \"password\": \"3hF!9pL@X7\",\r\n  \"phone\": \"14996204987\",\r\n  \"email\": \"henrique.andradesilva@hotmail.com\",\r\n  \"status\": 1,\r\n  \"role\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7181/api/users/24ac6b75-471b-4f17-96ff-7d0e7510461d",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"users",
+								"24ac6b75-471b-4f17-96ff-7d0e7510461d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"henrique\",\r\n  \"password\": \"Sucesso@2024\",\r\n  \"phone\": \"14996204986\",\r\n  \"email\": \"henrique.andradesilva@hotmail.com\",\r\n  \"status\": 1,\r\n  \"role\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7181/api/users/24ac6b75-471b-4f17-96ff-7d0e7510461d",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"users",
+								"24ac6b75-471b-4f17-96ff-7d0e7510461d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7181/api/users?pageNumber=1&pageSize=10",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/users",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"henrique\",\r\n  \"password\": \"Sucesso@2024\",\r\n  \"phone\": \"14996204986\",\r\n  \"email\": \"henrique.andradesilva@hotmail.com\",\r\n  \"status\": 1,\r\n  \"role\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7181/api/users/24ac6b75-471b-4f17-96ff-7d0e7510461d",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"users",
+								"24ac6b75-471b-4f17-96ff-7d0e7510461d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sales",
+			"item": [
+				{
+					"name": "api/sales",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customer\": \"teste\",\r\n  \"branch\": \"teste\",\r\n  \"date\": \"2025-01-11T11:53:01.517Z\",\r\n  \"listSaleItems\": [\r\n    {\r\n      \"product\": \"teste\",\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 20\r\n    },\r\n    {\r\n      \"product\": \"teste\",\r\n      \"quantity\": 12,\r\n      \"unitPrice\": 20\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7181/api/sales",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"sales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/sales",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customer\": \"teste1\",\r\n  \"branch\": \"teste1\",\r\n  \"date\": \"2025-01-22T11:53:01.517Z\",\r\n  \"isCancelled\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7181/api/sales/11111111-1111-1111-1111-111111111111",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"sales",
+								"11111111-1111-1111-1111-111111111111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/sales",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7181/api/sales/11111111-1111-1111-1111-111111111111",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"sales",
+								"11111111-1111-1111-1111-111111111111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/sales",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7181/api/sales?pageNumber=1&pageSize=10",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"sales"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/Sales",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7181/api/sales/11111111-1111-1111-1111-111111111111",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"sales",
+								"11111111-1111-1111-1111-111111111111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/sales/{id}/cancel",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7181/api/sales/22222222-2222-2222-2222-222222222222/cancel",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"sales",
+								"22222222-2222-2222-2222-222222222222",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/sales/{id}/items/{saleItemId}/cancel",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7181/api/sales/33333333-3333-3333-3333-333333333333/items/33333333-aaaa-aaaa-aaaa-333333333333/cancel",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7181",
+							"path": [
+								"api",
+								"sales",
+								"33333333-3333-3333-3333-333333333333",
+								"items",
+								"33333333-aaaa-aaaa-aaaa-333333333333",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
