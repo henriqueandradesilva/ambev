@@ -1,7 +1,7 @@
-using AutoMapper;
 using Ambev.DeveloperEvaluation.Domain.Entities;
+using AutoMapper;
 
-namespace Ambev.DeveloperEvaluation.Application.Auth.AuthenticateUser;
+namespace Ambev.DeveloperEvaluation.Application.Auth.Commands.AuthenticateUser;
 
 /// <summary>
 /// AutoMapper profile for authentication-related mappings

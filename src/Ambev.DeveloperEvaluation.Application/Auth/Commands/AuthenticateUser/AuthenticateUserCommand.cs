@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Ambev.DeveloperEvaluation.Application.Auth.AuthenticateUser;
+namespace Ambev.DeveloperEvaluation.Application.Auth.Commands.AuthenticateUser;
 
 /// <summary>
 /// Command for authenticating a user in the system.
