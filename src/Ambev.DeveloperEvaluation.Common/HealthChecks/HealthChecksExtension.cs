@@ -40,7 +40,8 @@ public static class HealthChecksExtension
     /// builder.AddBasicHealthChecks();
     /// </code>
     /// </example>
-    public static void AddBasicHealthChecks(this WebApplicationBuilder builder)
+    public static void AddBasicHealthChecks(
+        this WebApplicationBuilder builder)
     {
         builder.Services.AddHealthChecks()
             .AddCheck("Liveness", () => HealthCheckResult.Healthy(), tags: ["liveness"])
@@ -72,7 +73,8 @@ public static class HealthChecksExtension
     /// app.UseBasicHealthChecks();
     /// </code>
     /// </example>
-    public static void UseBasicHealthChecks(this WebApplication app)
+    public static void UseBasicHealthChecks(
+        this WebApplication app)
     {
         var livenessOptions = WriteHealtCheckRespose(app, "liveness");
         app.UseHealthChecks("/health/live", livenessOptions);
@@ -99,7 +101,9 @@ public static class HealthChecksExtension
     /// - Sets specific HTTP status codes for different health states.
     /// - Configures a custom response writer that generates a JSON with detailed health status information.
     /// </remarks>
-    private static HealthCheckOptions WriteHealtCheckRespose(this WebApplication app, string tag)
+    private static HealthCheckOptions WriteHealtCheckRespose(
+        this WebApplication app,
+        string tag)
     {
         var options = new HealthCheckOptions
         {
