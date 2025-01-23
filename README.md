@@ -71,7 +71,7 @@ git clone https://github.com/henriqueandradesilva/ambev.git
 # Setup and Execution (Command Prompt Only)#
 **To run the project from the terminal, follow the steps below:**
 1. **Open the terminal and navigate to the project directory**
-Make sure you're in the root directory where the .sln file and docker-compose.yml file are located. Example: **cd /path/to/project**
+Make sure you're in the root directory where the Ambev.DeveloperEvaluation.sln file and docker-compose.yml file are located. Example: **cd /path/to/project**
 2. **Build the project using dotnet build**
 Before running the containers, build the solution to ensure there are no errors in the code. 
 Example: **dotnet build**
