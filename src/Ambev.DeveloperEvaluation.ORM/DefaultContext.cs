@@ -1,42 +1,52 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.Reflection;
 
 namespace Ambev.DeveloperEvaluation.ORM;
 
 public class DefaultContext : DbContext
 {
-    public DbSet<User> Users { get; set; }
-
-    public DefaultContext(DbContextOptions<DefaultContext> options) : base(options)
+    public DefaultContext(
+        DbContextOptions<DefaultContext> options) : base(options)
     {
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(
+        ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
         base.OnModelCreating(modelBuilder);
     }
-}
-public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>
-{
-    public DefaultContext CreateDbContext(string[] args)
+
+    public override async Task<int> SaveChangesAsync(
+        CancellationToken cancellationToken = default)
     {
-        IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
-            .Build();
+        AuditLog();
 
-        var builder = new DbContextOptionsBuilder<DefaultContext>();
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        return await base.SaveChangesAsync(cancellationToken);
+    }
 
-        builder.UseNpgsql(
-               connectionString,
-               b => b.MigrationsAssembly("Ambev.DeveloperEvaluation.WebApi")
-        );
+    private void AuditLog()
+    {
+        var entries = ChangeTracker.Entries();
 
-        return new DefaultContext(builder.Options);
+        foreach (var entry in entries)
+        {
+            if (entry.State == EntityState.Modified)
+                Log.Debug($"Entity: {entry.Entity.GetType().Name}, Date Updated after set: {entry.CurrentValues["UpdatedAt"]}");
+
+            if (entry.State == EntityState.Added)
+                Log.Debug($"Entity: {entry.Entity.GetType().Name}, Date Created set: {entry.CurrentValues["CreatedAt"]}");
+
+            if (entry.State == EntityState.Deleted)
+            {
+                var entityType = entry.Entity.GetType().Name;
+                var entityId = entry.Properties.FirstOrDefault(p => p.Metadata.Name == "Id")?.CurrentValue;
+
+                if (entityId != null)
+                    Log.Debug($"Entity: {entityType}, Id: {entityId}");
+            }
+        }
     }
 }
