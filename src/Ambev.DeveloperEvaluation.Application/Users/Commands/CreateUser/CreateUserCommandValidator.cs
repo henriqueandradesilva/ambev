@@ -2,10 +2,10 @@
 using Ambev.DeveloperEvaluation.Domain.Validation;
 using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.Application.Users.CreateUser;
+namespace Ambev.DeveloperEvaluation.Application.Users.Commands.CreateUser;
 
 /// <summary>
-/// Validator for CreateUserCommand that defines validation rules for user creation command.
+/// Validator for CreateUserCommandValidator that defines validation rules for user creation command.
 /// </summary>
 public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {

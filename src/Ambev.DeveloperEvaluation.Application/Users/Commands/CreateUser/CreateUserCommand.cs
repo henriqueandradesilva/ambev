@@ -2,7 +2,7 @@
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using MediatR;
 
-namespace Ambev.DeveloperEvaluation.Application.Users.CreateUser;
+namespace Ambev.DeveloperEvaluation.Application.Users.Commands.CreateUser;
 
 /// <summary>
 /// Command for creating a new user.
@@ -21,6 +21,11 @@ namespace Ambev.DeveloperEvaluation.Application.Users.CreateUser;
 public class CreateUserCommand : IRequest<CreateUserResult>
 {
     /// <summary>
+    /// Gets or sets the email address for the user.
+    /// </summary>
+    public string Email { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the username of the user to be created.
     /// </summary>
     public string Username { get; set; } = string.Empty;
@@ -36,11 +41,6 @@ public class CreateUserCommand : IRequest<CreateUserResult>
     public string Phone { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the email address for the user.
-    /// </summary>
-    public string Email { get; set; } = string.Empty;
-
-    /// <summary>
     /// Gets or sets the status of the user.
     /// </summary>
     public UserStatus Status { get; set; }
@@ -50,11 +50,12 @@ public class CreateUserCommand : IRequest<CreateUserResult>
     /// </summary>
     public UserRole Role { get; set; }
 
-
     public ValidationResultDetail Validate()
     {
         var validator = new CreateUserCommandValidator();
+
         var result = validator.Validate(this);
+
         return new ValidationResultDetail
         {
             IsValid = result.IsValid,

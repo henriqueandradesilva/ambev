@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using AutoMapper;
 
-namespace Ambev.DeveloperEvaluation.Application.Users.CreateUser;
+namespace Ambev.DeveloperEvaluation.Application.Users.Commands.CreateUser;
 
 /// <summary>
 /// Profile for mapping between User entity and CreateUserResponse
@@ -13,7 +13,7 @@ public class CreateUserProfile : Profile
     /// </summary>
     public CreateUserProfile()
     {
-        CreateMap<CreateUserCommand, User>();
         CreateMap<User, CreateUserResult>();
+        CreateMap<CreateUserCommand, User>();
     }
 }

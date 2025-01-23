@@ -1,6 +1,6 @@
 using Ambev.DeveloperEvaluation.Domain.Enums;
 
-namespace Ambev.DeveloperEvaluation.Application.Users.GetUser;
+namespace Ambev.DeveloperEvaluation.Application.Users.Queries.GetUser;
 
 /// <summary>
 /// Response model for GetUser operation
@@ -13,19 +13,19 @@ public class GetUserResult
     public Guid Id { get; set; }
 
     /// <summary>
-    /// The user's full name
-    /// </summary>
-    public string Name { get; set; } = string.Empty;
-
-    /// <summary>
     /// The user's email address
     /// </summary>
     public string Email { get; set; } = string.Empty;
 
     /// <summary>
+    /// The user's Name
+    /// </summary>
+    public string Username { get; set; } = string.Empty;
+
+    /// <summary>
     /// The user's phone number
     /// </summary>
-    public string Phone { get; set; } = string.Empty;   
+    public string Phone { get; set; } = string.Empty;
 
     /// <summary>
     /// The user's role in the system
